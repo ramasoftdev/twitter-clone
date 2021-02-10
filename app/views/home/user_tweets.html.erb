@@ -1,0 +1,7 @@
+<h3>Tweets <%= @user.username %></h3>
+
+<% @tweets.each do |tweet| %>
+    <p>tweet <%= tweet.id%> - <%= tweet.twett_content %></p>
+<% end %>
+
+<%= will_paginate @tweets %>

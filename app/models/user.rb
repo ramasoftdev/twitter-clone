@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  #Associations
+  has_many :tweets
+
+  has_many :following_users, :class_name => 'Follow', :foreign_key => 'following_user_id'
+  has_many :follower_users, :class_name => 'Follow', :foreign_key => 'follower_user_id'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -21,10 +27,6 @@ class User < ApplicationRecord
   def login
     @login || self.username || self.email
   end
-
-  protected
-
-  
 
   private
 

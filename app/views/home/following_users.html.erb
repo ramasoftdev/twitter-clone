@@ -1,0 +1,11 @@
+<h3>Following</h3>
+
+<% @following_users.each do |user| %>
+    <p>
+        <%= user.name %> <%= user.lastname %>
+        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
+        
+    </p>
+<% end %>
+
+<%= will_paginate @following_users %>
