@@ -11,9 +11,13 @@
   </head>
 
   <body>
-    <% if user_signed_in? %>
-      <%= render "layouts/navbar" %>
-    <% end %>
-    <%= yield %>
+    <div class="container">
+      <% if user_signed_in? %>
+        <%= render "layouts/navbar" %>
+      <% end %>
+      <div class="col-12 col-md-12">
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>

@@ -1,7 +1,41 @@
-<h3>Tweets <%= @user.username %></h3>
+<div class="row">
+    <div class="col-12 col-md-9">
+        <h3><%= @user.username %></h3>
+    </div>
+    
+    <div class="col-12 col-md-3">
+        <h6 class="float-right">
+            <label>Followers
+                <a href="<%= user_followship_path(username: @user.username, followship_type: 1) %>">
+                    <span class="badge badge-secondary">
+                        <%= Follow.where(following_user_id: @user.id).count %>
+                    </span>
+                </a>
+            </label>
+            |
+            <label>Following
+                <a href="<%= user_followship_path(username: @user.username, followship_type: 2) %>">
+                    <span class="badge badge-secondary">
+                        <%= Follow.where(follower_user_id: @user.id).count %>
+                    </span>
+                </a>
+            </label>           
+        </h6>
+    </div>   
+     
+    <div class="col-9 col-md-8">
+        <% @tweets.each do |tweet| %>
+            <p>tweet <%= tweet.id%> - <%= tweet.twett_content %></p>
+        <% end %>
+    </div>
 
-<% @tweets.each do |tweet| %>
-    <p>tweet <%= tweet.id%> - <%= tweet.twett_content %></p>
-<% end %>
-
-<%= will_paginate @tweets %>
+    <div class="col-3 col-md-4">
+        <% if Follow.where(follower_user_id: current_user.id, following_user_id: @user.id).count === 0 %>
+            <%= link_to  "Follow", home_path, class: 'btn btn-md btn-primary float-right' %>
+        <% end %>
+    </div>
+    
+    <div class="col-12 col-md-12">
+        <%= will_paginate @tweets %>
+    </div>
+</div>

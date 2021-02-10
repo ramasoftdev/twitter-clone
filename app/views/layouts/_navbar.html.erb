@@ -1,28 +1,32 @@
-<nav class="navbar navbar-expand-lg navbar-ligth bg-ligth">
-    <a class="navbar-brand" href="<%= home_path %>">Twitter Clone</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="row">
+    <div class="col-12">
+        <nav class="navbar navbar-expand-lg navbar-ligth bg-ligth">
+            <a class="navbar-brand" href="<%= home_path %>">Twitter Clone</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style="color: #00000;">x</span>
+            </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto active">
-            <li class="nav-item">
-                <a class="nav-link" href="<%= follower_users_path %>">FOLLOWERS <span class="badge badge-secondary"><%= Follow.where(following_user_id: current_user.id).count %></span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="<%= following_users_path %>">FOLLOWING <span class="badge badge-secondary"><%= Follow.where(follower_user_id: current_user.id).count %></span></a>
-            </li>
-        </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto active">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= follower_users_path %>">FOLLOWERS <span class="badge badge-secondary"><%= Follow.where(following_user_id: current_user.id).count %></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<%= following_users_path %>">FOLLOWING <span class="badge badge-secondary"><%= Follow.where(follower_user_id: current_user.id).count %></span></a>
+                    </li>
+                </ul>
 
-        <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= current_user&.username %>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-                </div>
-            </li>
-        </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <%= current_user&.username %>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </div>
-</nav>
+</div>

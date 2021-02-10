@@ -1,11 +1,20 @@
-<h3>Following</h3>
-
-<% @following_users.each do |user| %>
-    <p>
-        <%= user.name %> <%= user.lastname %>
-        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
-        
-    </p>
-<% end %>
-
-<%= will_paginate @following_users %>
+<div class="row">
+    <div class="col-12 col-md-12">
+        <h3>Following</h3>
+    </div>
+    <div class="col-12 col-md-8">
+        <% @following_users.each do |user| %>
+            <p>
+                <%= user.name %> <%= user.lastname %>
+                <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
+                
+            </p>
+        <% end %>
+    </div>
+    <div class="col-6 col-md-4">
+        <%= link_to  "Follow another user", new_follow_user_by_username_path, class: 'btn btn-md btn-primary' %>
+    </div>
+    <div class="col-12 col-md-12">
+        <%= will_paginate @following_users %>
+    </div>
+</div>

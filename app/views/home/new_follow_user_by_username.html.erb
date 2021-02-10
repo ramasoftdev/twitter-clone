@@ -1,0 +1,13 @@
+<%= form_with url: create_follow_user_by_username_path, method: :post do |form| %>    
+    <div class="row">
+        <div class="col-12 col-md-2">
+            <%= form.label :username, "Search for username:" %>
+        </div>
+        <div class="col-12 col-md-6">
+            <%= form.text_field :username, class: "form-control" %>
+        </div>
+        <div class="col-6 col-md-4">
+            <%= form.submit "Search", class: 'btn btn-md btn-primary' %>
+        </div>
+    </div>
+<% end %>
