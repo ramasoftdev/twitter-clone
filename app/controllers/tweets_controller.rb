@@ -22,37 +22,34 @@ class TweetsController < HomeController
   # POST /tweets or /tweets.json
   def create
     @tweet = current_user.tweets.build(tweet_params)
-
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to root_path, notice: "Tweet was successfully created." }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    if @tweet.save
+      flash[:success] = "Tweet was successfully created."
+      redirect_to root_path
+    else
+      flash[:error] = @tweet.errors.full_messages
+      render "new"
     end
   end
 
   # PATCH/PUT /tweets/1 or /tweets/1.json
   def update
-    respond_to do |format|
-      if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: "Tweet was successfully updated." }
-        format.json { render :show, status: :ok, location: @tweet }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    if @tweet.update(tweet_params)
+      flash[:success] = "Tweet was successfully updated."
+      redirect_to @tweet
+    else
+      flash[:error] = @tweet.errors.full_messages
+      render "edit"
     end
   end
 
   # DELETE /tweets/1 or /tweets/1.json
   def destroy
-    @tweet.destroy
-    respond_to do |format|
-      format.html { redirect_to tweets_url, notice: "Tweet was successfully destroyed." }
-      format.json { head :no_content }
+    if @tweet.destroy
+      flash[:success] = "Tweet was successfully destroyed."
+      redirect_to tweets_url
+    else
+      flash[:error] = @tweet.errors.full_messages
+      render @tweet
     end
   end
 

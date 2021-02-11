@@ -1,19 +1,21 @@
-users = [
-  { email: "user1@email.com", username: "user1", password: "pass12345", name: "User firstname", lastname: "User firstlastname" },
-  { email: "user2@email.com", username: "user2", password: "pass12345", name: "User secondname", lastname: "User secondlastname" },
-  { email: "user3@email.com", username: "user3", password: "pass12345", name: "User thirdtname", lastname: "User thirdlastname" },
-]
+require "faker"
 
-users.each { |user|
-  puts "Adding #{user[:email]} #{user[:username]} #{user[:password]}"
-  admn = User.find_or_initialize_by(email: user[:email])
+User.find_or_initialize_by(email: "koombean@email.com", username: "koombeanuser")
     .update(
-      username: user[:username],
-      password: user[:password],
-      password_confirmation: user[:password],
-      name: user[:name],
-      lastname: user[:lastname],
+      name: "Koombeanname",
+      lastname: "Koombeanlastname",
+      password: "pass12345",
+      password_confirmation: "pass12345",
     )
-}
 
-puts "#{User.all.count} of #{users.size} users Created"
+(1..20).each do |id|
+  User.find_or_initialize_by(email: Faker::Internet.email, username: Faker::Internet.username)
+    .update(
+      name: Faker::Name.name,
+      lastname: Faker::Name.last_name,
+      password: "pass12345",
+      password_confirmation: "pass12345",
+    )
+end
+
+puts "#{User.all.count} of 20 users Created"

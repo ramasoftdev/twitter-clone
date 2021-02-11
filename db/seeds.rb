@@ -6,8 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 ActiveRecord::Base.transaction do
-    if Rails.env.development?
-      load "db/seeds/users/users.rb"
-      load "db/seeds/tweets/tweets.rb"
-    end
+  if Rails.env.development?
+    load "db/seeds/users/users.rb"
+    load "db/seeds/tweets/tweets.rb"
+    load "db/seeds/follows/follows.rb"
   end
+end

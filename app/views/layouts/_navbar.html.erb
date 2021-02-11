@@ -37,7 +37,7 @@
         <div class="section" id="b-section-navbar-search-form" name="Navbar: search form">
             <div class="widget BlogSearch" data-version="2" id="BlogSearch1">
                 <div class="form-inline">
-                    <label aria-label="Search this blog" disabled class="form-control mr-sm-2">@<%= current_user&.username %></label>
+                    <label aria-label="Search this blog" disabled class="form-control mr-sm-2"><a href="<%= edit_user_registration_path %>">@<%= current_user&.username %></a></label>
                     <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "btn btn-success my-2 my-sm-0", type: "submit" %>
                 </div>
             </div>
