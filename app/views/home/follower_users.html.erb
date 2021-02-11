@@ -1,13 +1,34 @@
-<h3>Followers</h3>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+            <!-- Title -->
+            <h6 class="mt-4"><a href="#">@<%= current_user.username%>'s</a> Followers</h6>
+            
+            <hr>
 
-<% @follower_users.each do |user| %>
-    <p>
-        <%= user.name %> <%= user.lastname %>
-        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
-    </p>
-    <% if (@unfollow_users.include? user.email)%>
-        <a href="<%= follow_user_path(user.username) %>" title="Follow ?">[Follow]</a>
-    <% end %>
-<% end %>
+            <% @follower_users.each do |user| %>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <label><%= user.name %> <%= user.lastname %></label>
+                        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
+                        <% if (@unfollow_users.include? user.email)%>
+                            <a href="<%= follow_user_path(user.username) %>" title="Follow @<%= user.username %>?">[Follow]</a>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
 
-<%= will_paginate @follower_users %>
+            <div class="media mb-4">
+                <div class="media-body">
+                    <%= will_paginate @follower_users %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

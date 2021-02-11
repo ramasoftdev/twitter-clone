@@ -1,13 +1,34 @@
-<h3>Followers</h3>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+            <!-- Title -->
+            <h6 class="mt-4"><a href="<%= user_tweets_path(@user.username) %>">@<%= @user.username%>'s</a> <%= (params[:followship_type].to_s == '1') ? 'Followers' : 'Followings' %></h6>
+            
+            <hr>
 
-<% @followship_users.each do |user| %>
-    <p>
-        <%= user.name %> <%= user.lastname %>
-        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
-    </p>
-    <% if (@unfollow_users.include? user.email)%>
-        <a href="<%= follow_user_path(user.username) %>" title="Follow ?">[Follow]</a>
-    <% end %>
-<% end %>
+            <% @followship_users.each do |user| %>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <label><%= user.name %> <%= user.lastname %></label>
+                        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
+                        <% if (@unfollow_users.include? user.email) && (user.id != current_user.id)%>
+                            <a href="<%= follow_user_path(user.username) %>" title="Follow ?">[Follow]</a>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
 
-<%= will_paginate @followship_users %>
+            <div class="media mb-4">
+                <div class="media-body">
+                    <%= will_paginate @followship_users %>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

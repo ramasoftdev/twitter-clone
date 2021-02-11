@@ -2,6 +2,11 @@ class HomeController < ApplicationController
   before_action :set_following_users, only: [:following_users, :follower_users, :user_followship]
 
   def index
+    @tweets = Tweet.select("tweets.*, U.name, U.lastname, U.username").joins("INNER JOIN users U ON (tweets.user_id = U.id)")
+                   .where("U.id IN (?)", User.joins("INNER JOIN follows F ON (F.following_user_id = users.id) ")
+                                             .where("F.follower_user_id = 1").pluck("users.id").push(current_user.id))
+                   .order("tweets.updated_at DESC")
+                   .paginate(page: params[:page], per_page: 10)
   end
 
   def following_users

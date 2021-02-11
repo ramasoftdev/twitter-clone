@@ -8,16 +8,48 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <style>
+    body,html {
+      height:100%;
+    }
+    .container {
+       min-height:100%;
+    }
+    .footer {
+      height:40px;
+      margin-top:-40px;
+    }
+    </style>
   </head>
 
   <body>
-    <div class="container">
-      <% if user_signed_in? %>
-        <%= render "layouts/navbar" %>
-      <% end %>
-      <div class="col-12 col-md-12">
-        <%= yield %>
-      </div>
-    </div>
+    <% if user_signed_in? %>
+      <%= render "layouts/navbar" %>
+    <% end %>
+    <%= yield %>
+    
+
+    <!--footer-->
+    <footer class="footer">
+        <!-- Top Footer Area Start -->
+        <div class="foo_top_header_one section_padding_100_70">
+            <div class="container">
+                <div class="row">
+                  <hr>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Bottom Area Start -->
+        <div class=" kilimanjaro_bottom_header_one section_padding_50 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Downloaded and Modified by AJ from <a href="https://bootsnipp.com/snippets/6Xa15#" target="_blank">bootsnipp</a> </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
   </body>
 </html>

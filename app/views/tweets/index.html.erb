@@ -1,27 +1,53 @@
-<p id="notice"><%= notice %></p>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+            <!-- Title -->
+            <h3 class="mt-4">My Tweets</h3>
+            <!-- Author -->
+            <p class="lead">
+                by <a href="#">@<%= current_user.username%></a>
+            </p>
+            <hr>
 
-<h1>Tweets</h1>
+            <!-- Single Comment -->
+            <% @tweets.each do |tweet| %>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                      Content <%= tweet.twett_content %>
+                    </div>
+                    <%= link_to 'Show', tweet %> &nbsp;&nbsp;
+                    <% if current_user.id == tweet.user_id %>
+                      <%= link_to 'Edit', edit_tweet_path(tweet) %> &nbsp;&nbsp;
+                      <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
+                    <% end %>
+                </div>
+            <% end %>
+            <div class="media mb-4">
+                <div class="media-body">
+                    <%= will_paginate @tweets %>
+                </div>
+            </div>
+        </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Twett content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
 
-  <tbody>
-    <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= tweet.twett_content %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Tweet', new_tweet_path %>
+            <!-- Search Widget -->
+            <div class="card my-4">
+            <h5 class="card-header">New Tweet</h5>
+            <div class="card-body">
+                <div class="input-group">
+                <span class="input-group-btn">
+                    <a href="<%= new_tweet_path %>" class="btn btn-primary" type="button">Create New Tweet</a>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

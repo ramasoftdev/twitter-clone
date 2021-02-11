@@ -1,3 +1,66 @@
-<h1>Home#index</h1>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+            <!-- Title -->
+            <h1 class="mt-4"><%= current_user.name %> <%= current_user.lastname %></h1>
+            <!-- Author -->
+            <p class="lead">
+                by <a href="#">@<%= current_user.username%></a>
+            </p>
+            <hr>
 
-<a href="<%= new_tweet_path %>" class="btn btn-primary btn-sm" title="New tweet" style="color: #ffff;">New Tweet</a>
+            <!-- Comments Form -->
+            <!--div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+                <form>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            </div-->
+
+            <!-- Single Comment -->
+            <% @tweets.each do |tweet| %>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <label><b><%= tweet.name %> <%= tweet.lastname %></b>, @<%= tweet.username %> - <%= tweet.updated_at.strftime("%Y/%m/%d %H:%M:%S:%L") %></label>
+                        <br>
+                        <p><%= link_to "#{tweet.twett_content}", tweet %> &nbsp;&nbsp;</p>
+                        <% if current_user.id == tweet.user_id %>
+                            <%= link_to 'Edit', edit_tweet_path(tweet) %> &nbsp;&nbsp;
+                            <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %>
+                        <% end %>
+                    </div>
+                </div>
+            <% end %>
+            <div class="media mb-4">
+                <div class="media-body">
+                    <%= will_paginate @tweets %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">New Tweet</h5>
+                <div class="card-body">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <a href="<%= new_tweet_path %>" class="btn btn-primary" type="button">Create New Tweet</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

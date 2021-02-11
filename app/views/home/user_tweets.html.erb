@@ -1,41 +1,83 @@
-<div class="row">
-    <div class="col-12 col-md-9">
-        <h3><%= @user.username %></h3>
-    </div>
-    
-    <div class="col-12 col-md-3">
-        <h6 class="float-right">
-            <label>Followers
-                <a href="<%= user_followship_path(username: @user.username, followship_type: 1) %>">
-                    <span class="badge badge-secondary">
-                        <%= Follow.where(following_user_id: @user.id).count %>
-                    </span>
-                </a>
-            </label>
-            |
-            <label>Following
-                <a href="<%= user_followship_path(username: @user.username, followship_type: 2) %>">
-                    <span class="badge badge-secondary">
-                        <%= Follow.where(follower_user_id: @user.id).count %>
-                    </span>
-                </a>
-            </label>           
-        </h6>
-    </div>   
-     
-    <div class="col-9 col-md-8">
-        <% @tweets.each do |tweet| %>
-            <p>tweet <%= tweet.id%> - <%= tweet.twett_content %></p>
-        <% end %>
-    </div>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+            <!-- Author -->
+            <h3 class="mt-4">@<%= @user.username %></h3>
+            <hr>
 
-    <div class="col-3 col-md-4">
-        <% if Follow.where(follower_user_id: current_user.id, following_user_id: @user.id).count === 0 %>
-            <%= link_to  "Follow", home_path, class: 'btn btn-md btn-primary float-right' %>
-        <% end %>
+            <!-- Comments Form -->
+            <!--div class="card my-4">
+            <h5 class="card-header">Leave a Comment:</h5>
+            <div class="card-body">
+                <form>
+                <div class="form-group">
+                    <textarea class="form-control" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+            </div-->
+
+            <!-- Single Comment -->
+            <% @tweets.each do |tweet| %>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <label><b><%= tweet.id %></b> - <%= tweet.updated_at.strftime("%Y/%m/%d %H:%M:%S:%L") %></label>
+                        <p><%= tweet.twett_content %></p>
+                    </div>
+                </div>
+                <br>
+            <% end %>
+            <div class="media mb-4">
+                <div class="media-body">
+                    <%= will_paginate @tweets %>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+
+            <!-- Side Widget -->
+            <div class="card my-4">
+                <h5 class="card-header"></h5>
+                <div class="card-body">
+                    <label>Followers
+                        <a href="<%= user_followship_path(username: @user.username, followship_type: 1) %>">
+                            <span class="badge badge-secondary">
+                                <%= Follow.where(following_user_id: @user.id).count %>
+                            </span>
+                        </a>
+                    </label>
+                    |
+                    <label>Following
+                        <a href="<%= user_followship_path(username: @user.username, followship_type: 2) %>">
+                            <span class="badge badge-secondary">
+                                <%= Follow.where(follower_user_id: @user.id).count %>
+                            </span>
+                        </a>
+                    </label>  
+                </div>
+            </div>
+
+            <!-- Search Widget -->
+            <% if Follow.where(follower_user_id: current_user.id, following_user_id: @user.id).count === 0 %>
+                <div class="card my-4">
+                    <h5 class="card-header">Follow user</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <%= link_to  "Follow", home_path, class: 'btn btn-md btn-primary float-right' %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
     </div>
-    
-    <div class="col-12 col-md-12">
-        <%= will_paginate @tweets %>
-    </div>
+    <!-- /.row -->
 </div>
+<!-- /.container -->

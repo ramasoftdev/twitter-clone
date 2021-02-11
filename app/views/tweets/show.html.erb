@@ -1,9 +1,44 @@
-<p id="notice"><%= notice %></p>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+            <!-- Title -->
+            <h4 class="mt-4"> <label><b><%= @tweet.twett_content %></b></label></h4>
+            <!-- Author -->
+            <p class="lead">
+                by <a href="#">@<%= current_user.username%></a>
+            </p>
+            <hr>
+            
+            <div class="media mb-4">
+                <div class="media-body">
+                    <% if current_user.id == @tweet.user_id %>
+                      <%= link_to 'Edit', edit_tweet_path(@tweet) %> |
+                    <% end %>
 
-<p>
-  <strong>Twett content:</strong>
-  <%= @tweet.twett_content %>
-</p>
+                    <%= link_to 'Back', tweets_path %>
+                </div>
+            </div>
+        </div>
 
-<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
-<%= link_to 'Back', tweets_path %>
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+          <!-- Search Widget -->
+          <div class="card my-4">
+            <h5 class="card-header">New Tweet</h5>
+            <div class="card-body">
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <% if user_signed_in? %>
+                      <a href="<%= new_tweet_path %>" class="btn btn-primary" type="button">Create New Tweet</a>
+                    <% end %>
+                  </span>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->

@@ -3,7 +3,7 @@ class TweetsController < HomeController
 
   # GET /tweets or /tweets.json
   def index
-    @tweets = Tweet.all
+    @tweets = current_user.tweets.order("tweets.updated_at DESC").paginate(page: params[:page], per_page: 10)
   end
 
   # GET /tweets/1 or /tweets/1.json
@@ -22,7 +22,7 @@ class TweetsController < HomeController
   # POST /tweets or /tweets.json
   def create
     @tweet = current_user.tweets.build(tweet_params)
-    
+
     respond_to do |format|
       if @tweet.save
         format.html { redirect_to root_path, notice: "Tweet was successfully created." }
@@ -57,13 +57,14 @@ class TweetsController < HomeController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tweet
-      @tweet = Tweet.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def tweet_params
-      params.require(:tweet).permit(:twett_content)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tweet
+    @tweet = Tweet.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def tweet_params
+    params.require(:tweet).permit(:twett_content)
+  end
 end

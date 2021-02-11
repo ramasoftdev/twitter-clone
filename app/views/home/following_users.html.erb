@@ -1,20 +1,47 @@
-<div class="row">
-    <div class="col-12 col-md-12">
-        <h3>Following</h3>
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+        <!-- Blog Entries Column -->
+        <div class="col-lg-8">
+            <!-- Title -->
+            <h6 class="mt-4"><a href="#">@<%= current_user.username%>'s</a> Following</h6>
+            
+            <hr>
+
+            <% @following_users.each do |user| %>
+                <div class="media mb-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <label><%= user.name %> <%= user.lastname %></label>
+                        <br>
+                        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
+                    </div>
+                </div>
+            <% end %>
+
+            <div class="media mb-4">
+                <div class="media-body">
+                    <%= will_paginate @following_users %>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div class="col-md-4">
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Follow another user</h5>
+                <div class="card-body">
+                    <div class="input-group">
+                        <span class="input-group-btn">
+                            <a href="<%= new_follow_user_by_username_path %>" class="btn btn-primary" type="button">Follow</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="col-12 col-md-8">
-        <% @following_users.each do |user| %>
-            <p>
-                <%= user.name %> <%= user.lastname %>
-                <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
-                
-            </p>
-        <% end %>
-    </div>
-    <div class="col-6 col-md-4">
-        <%= link_to  "Follow another user", new_follow_user_by_username_path, class: 'btn btn-md btn-primary' %>
-    </div>
-    <div class="col-12 col-md-12">
-        <%= will_paginate @following_users %>
-    </div>
+    <!-- /.row -->
 </div>
+<!-- /.container -->
