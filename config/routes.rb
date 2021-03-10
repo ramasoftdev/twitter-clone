@@ -5,7 +5,7 @@ Rails.application.routes.draw do
                                        passwords: "users/passwords",
                                        confirmations: "users/confirmations" }
   root :to => "home#index"
-  get "home" => "home#index", :as => :home
+  get "/home" => "home#index", :as => :home
   resources :tweets
 
   get "following_users" => "followships#following_users", :as => :following_users
