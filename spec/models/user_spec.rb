@@ -1,18 +1,16 @@
 require "rails_helper"
 
 RSpec.describe User, type: :model do
-  subject {
-    described_class.new(username: "username1",
-                        email: "username1@email.com",
-                        name: "Firstusername",
-                        lastname: "Firstuserlastname",
-                        password: "username1pass",
-                        password_confirmation: "username1pass")
-  }
+  subject { FactoryBot.create(:user) }
+  let(:invalid_user) { FactoryBot.create(:invalid_user) }
 
   describe "Validations" do
     it "is valid with valid attributes" do
       expect(subject).to be_valid
+    end
+
+    it "is invalid with invalid attributes" do
+      expect(invalid_user).to_not be_valid
     end
 
     it "is not valid without a password" do
