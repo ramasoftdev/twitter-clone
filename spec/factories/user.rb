@@ -18,9 +18,9 @@ FactoryBot.define do
   end
 
   factory :invalid_user, class: User do
-    to_create {|instance| instance.save(validate: false) }
-    email {""}
-    username {""}
+    to_create { |instance| instance.save(validate: false) }
+    email { "" }
+    username { "" }
   end
 
   factory :user_second, class: User do
