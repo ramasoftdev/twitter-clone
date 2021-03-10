@@ -3,7 +3,7 @@ class TweetsController < HomeController
 
   # GET /tweets or /tweets.json
   def index
-    @tweets = current_user.tweets.order("tweets.updated_at DESC").paginate(page: params[:page], per_page: 10)
+    @tweets = current_user.tweets.order(updated_at: :DESC).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /tweets/1 or /tweets/1.json
