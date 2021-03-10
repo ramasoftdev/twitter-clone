@@ -2,23 +2,19 @@ require "rails_helper"
 
 RSpec.describe Tweet, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
-  let(:user) {
-    User.create(username: "username1",
-                email: "username1@email.com",
-                name: "Firstusername",
-                lastname: "Firstuserlastname",
-                password: "username1pass",
-                password_confirmation: "username1pass")
+  subject {
+    FactoryBot.create(:tweet)
   }
 
-  subject {
-    described_class.new(twett_content: "Valid tweet text",
-                        user_id: user.id)
-  }
+  let(:invalid_tweet) { FactoryBot.create(:invalid_tweet) }
 
   describe "Validations" do
     it "is valid with valid attributes" do
       expect(subject).to be_valid
+    end
+
+    it "is invalid with invalid attributes" do
+      expect(invalid_tweet).to_not be_valid
     end
 
     it "is not valid id twett_content is greater than 280 characters" do
