@@ -1,9 +1,14 @@
 class User < ApplicationRecord
   #Associations
   has_many :tweets
+  
+  has_many :following, class_name: 'Follow', foreign_key: 'follower_user_id'
+  has_many :following_users, through: :following, source: :following_user
 
-  has_many :following_users, :class_name => 'Follow', :foreign_key => 'following_user_id'
-  has_many :follower_users, :class_name => 'Follow', :foreign_key => 'follower_user_id'
+  has_many :follower, :class_name => 'Follow', foreign_key: 'following_user_id'
+  has_many :follower_users, through: :follower, source: :follower_user
+
+  has_many :following_tweets, through: :following_users, source: :tweets
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
