@@ -1,14 +1,18 @@
 require "rails_helper"
 
 RSpec.describe Tweet, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
+  
   subject {
     FactoryBot.create(:tweet)
   }
 
   let(:invalid_tweet) { FactoryBot.create(:invalid_tweet) }
 
-  describe "Validations" do
+  describe "~> #{described_class}`s associations" do
+    it { should belong_to(:user) }
+  end
+
+  describe "~> #{described_class}`s validations" do
     it "is valid with valid attributes" do
       expect(subject).to be_valid
     end

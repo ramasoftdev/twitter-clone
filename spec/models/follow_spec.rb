@@ -7,8 +7,13 @@ RSpec.describe Follow, type: :model do
   }
 
   let(:invalid_follow) { FactoryBot.create(:invalid_follow) }
+
+  describe "~> #{described_class}`s associations" do
+    it { should belong_to(:following_user).class_name("User") }
+    it { should belong_to(:follower_user).class_name("User") }
+  end
   
-  describe "Validations" do
+  describe "~> #{described_class}`s  validations" do
     it "is valid with valid attributes" do
       expect(subject).to be_valid
     end

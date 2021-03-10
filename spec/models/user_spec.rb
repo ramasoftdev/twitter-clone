@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   subject { FactoryBot.create(:user) }
   let(:invalid_user) { FactoryBot.create(:invalid_user) }
 
-  describe "associations" do
+  describe "~> #{described_class}`s associations" do
     it { should have_many(:tweets) }
     it { should have_many(:following).class_name("Follow").with_foreign_key("follower_user_id") }
     it { should have_many(:follower).class_name("Follow").with_foreign_key("following_user_id") }
@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:following_tweets).through(:following_users).source(:tweets) }
   end
 
-  describe "validations" do
+  describe "~> #{described_class}`s validations" do
     it "is valid with valid attributes" do
       expect(subject).to be_valid
     end
