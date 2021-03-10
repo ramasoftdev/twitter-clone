@@ -1,3 +1,5 @@
+require "faker"
+
 FactoryBot.define do
   factory :follow do
     following_user { FactoryBot.create(:user) }
