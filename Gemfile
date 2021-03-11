@@ -51,6 +51,7 @@ group :development do
   gem 'spring'
   gem 'rubocop', '~> 1.10'
   gem 'bullet', '~> 6.1', '>= 6.1.4'
+  gem 'simplecov', '~> 0.12.0'
 end
 
 group :test do
