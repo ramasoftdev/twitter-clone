@@ -11,7 +11,7 @@ class FollowshipsController < ApplicationController
 
   def follow_user
     user_following = User.find_by(username: params[:username])
-    if current_user.following_users.exclude?(user_following)
+    if followings.exclude?(user_following)
       begin
         current_user.following.create(following_user: user_following)
         flash[:success] = "User is now being followed by you"
@@ -32,7 +32,7 @@ class FollowshipsController < ApplicationController
   def create_follow_user_by_username
     user_following = User.find_by(username: username_str)
     if user_following
-      if current_user.followings.exclude?(user_following)
+      if followings.exclude?(user_following)
         begin
           current_user.following.create(following_user: user_following)
           flash[:success] = "User is now being followed by you"
@@ -52,15 +52,12 @@ class FollowshipsController < ApplicationController
   end
 
   def user_tweets
-    @user = User.where(username: params[:username]).first
-    if !@user.nil?
-      followings = Follow.where(following_user_id: @user.id, follower_user_id: current_user.id).count
-      followers = Follow.where(following_user_id: current_user.id, follower_user_id: @user.id).count
-
+    @user = User.where(username: username_str).first
+    if @user
+      followings = @user.following_users.count
+      followers = @user.follower_users.count
       if followings > 0 || followers > 0
-        @tweets = Tweet.where(user_id: @user.id)
-          .order("tweets.updated_at DESC")
-          .paginate(page: params[:page], per_page: 10)
+        @tweets = @user.tweets.order(updated_at: :DESC).paginate(page: params[:page], per_page: 10)
       else
         redirect_to home_path
       end
@@ -71,16 +68,16 @@ class FollowshipsController < ApplicationController
   end
 
   def user_followship
-    @user = User.where(username: params[:username]).first
-    case params[:followship_type].to_i
+    @user = User.find_by(username: username_str)
+    case followings_params[:followship_type].to_i
     when 1
-      @user_followings = followings.paginate(page: params[:page], per_page: 10)
-      @unfollow_users = (@user_followings - @following_users).pluck(:email)
+      @user_followings = @user.follower_users.paginate(page: params[:page], per_page: 10)
+      @unfollow_users = (@user_followings - followings).pluck(:email)
     when 2
-      @users_followers = current_user.follower_users.paginate(page: params[:page], per_page: 10)
-      @unfollow_users = (@users_followers - @following_users).pluck(:email)
+      @users_followers = @user.following_users.paginate(page: params[:page], per_page: 10)
+      @unfollow_users = (@users_followers - followings).pluck(:email)
     else
-      redirect_to home_path
+      redirect_to root_path
     end
     @followship_users = @user_followings ? @user_followings : @users_followers
   end
@@ -89,7 +86,7 @@ class FollowshipsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def followings_params
-    params.permit(:username)
+    params.permit(:username, :followship_type)
   end
 
   def followings
