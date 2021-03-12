@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
+# FollowshipsController
 class FollowshipsController < ApplicationController
-  
   def following_users
     @following_users = followings.paginate(page: params[:page], per_page: 10)
   end
@@ -10,24 +12,23 @@ class FollowshipsController < ApplicationController
   end
 
   def follow_user
-    user_following = User.find_by(username: params[:username])
+    user_following = User.find_by(username: username_str)
     if followings.exclude?(user_following)
       begin
         current_user.following.create(following_user: user_following)
-        flash[:success] = "User is now being followed by you"
-        redirect_to user_tweets_path(username: params[:username])
-      rescue => e
+        flash[:success] = 'User is now being followed by you'
+        redirect_to user_tweets_path(username: username_str)
+      rescue StandardError => e
         flash[:error] = e.message
         redirect_to follower_users
       end
     else
-      flash[:error] = "An error has been ocurred"
+      flash[:error] = 'An error has been ocurred'
       redirect_to follower_users
     end
   end
 
-  def new_follow_user_by_username
-  end
+  def new_follow_user_by_username; end
 
   def create_follow_user_by_username
     user_following = User.find_by(username: username_str)
@@ -35,9 +36,9 @@ class FollowshipsController < ApplicationController
       if followings.exclude?(user_following)
         begin
           current_user.following.create(following_user: user_following)
-          flash[:success] = "User is now being followed by you"
+          flash[:success] = 'User is now being followed by you'
           redirect_to user_tweets_path(username: username_str)
-        rescue => e
+        rescue StandardError => e
           flash[:error] = e.message
           redirect_to new_follow_user_by_username_path(username: username_str)
         end
@@ -46,23 +47,23 @@ class FollowshipsController < ApplicationController
         redirect_to new_follow_user_by_username_path(username: username_str)
       end
     else
-      flash[:error] = "Username not found"
+      flash[:error] = 'Username not found'
       redirect_to new_follow_user_by_username_path(username: username_str)
     end
   end
 
   def user_tweets
-    @user = User.where(username: username_str).first
+    @user = User.find_by(username: username_str)
     if @user
       followings = @user.following_users.count
       followers = @user.follower_users.count
-      if followings > 0 || followers > 0
+      if followings.positive? || followers.positive?
         @tweets = @user.tweets.order(updated_at: :DESC).paginate(page: params[:page], per_page: 10)
       else
         redirect_to home_path
       end
     else
-      flash[:error] = "User not found"
+      flash[:error] = 'User not found'
       redirect_to home_path
     end
   end
@@ -79,7 +80,7 @@ class FollowshipsController < ApplicationController
     else
       redirect_to root_path
     end
-    @followship_users = @user_followings ? @user_followings : @users_followers
+    @followship_users = @user_followings || @users_followers
   end
 
   private
@@ -92,8 +93,12 @@ class FollowshipsController < ApplicationController
   def followings
     @followings ||= current_user.following_users
   end
-    
+
   def username_str
-    (followings_params[:username].include? "@") ? followings_params[:username].split("@")[1] : followings_params[:username]
-  end 
+    if followings_params[:username].include?('@')
+      followings_params[:username].split('@')[1]
+    else
+      followings_params[:username]
+    end
+  end
 end
