@@ -24,13 +24,13 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<%= tweets_path %>">My tweets <span class="badge badge-secondary"><%= current_user.tweets.count %></span></a>
+            <a class="nav-link" href="<%= tweets_path %>">My tweets <span class="badge badge-secondary"><%= tweets_count %></span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<%= follower_users_path %>">Followers <span class="badge badge-secondary"><%= current_user.following_users.count %></span></a>
+            <a class="nav-link" href="<%= follower_users_path %>">Followers <span class="badge badge-secondary"><%= followers_count %></span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="<%= following_users_path %>">Following <span class="badge badge-secondary"><%= current_user.follower_users.count %></span></a>
+            <a class="nav-link" href="<%= following_users_path %>">Following <span class="badge badge-secondary"><%= following_count %></span></a>
         </li>
         </ul>
         <div class="ml-auto my-2 my-lg-0">
