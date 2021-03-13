@@ -1,10 +1,10 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { FactoryBot.create(:user) }
-  let(:invalid_user) { FactoryBot.create(:invalid_user) }
 
-  describe "~> #{described_class}`s associations" do
+  subject { create(:user) }
+
+  describe "relationships" do
     it { should have_many(:tweets) }
     it { should have_many(:following).class_name("Follow").with_foreign_key("follower_user_id") }
     it { should have_many(:follower).class_name("Follow").with_foreign_key("following_user_id") }
@@ -13,28 +13,11 @@ RSpec.describe User, type: :model do
     it { should have_many(:following_tweets).through(:following_users).source(:tweets) }
   end
 
-  describe "~> #{described_class}`s validations" do
-    it "is valid with valid attributes" do
-      expect(subject).to be_valid
-    end
-
-    it "is invalid with invalid attributes" do
-      expect(invalid_user).to_not be_valid
-    end
-
-    it "is not valid without a password" do
-      subject.password = nil
-      expect(subject).to_not be_valid
-    end
-
-    it "is not valid without an email" do
-      subject.email = nil
-      expect(subject).to_not be_valid
-    end
-
-    it "is not valid without an username" do
-      subject.username = nil
-      expect(subject).to_not be_valid
-    end
+  describe 'validations' do
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:username) }
+    it { should validate_presence_of(:password) }
+    it { should validate_uniqueness_of(:email).case_insensitive }
+    it { should validate_uniqueness_of(:username).case_insensitive }
   end
 end

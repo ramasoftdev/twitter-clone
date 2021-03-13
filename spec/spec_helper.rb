@@ -47,12 +47,6 @@ RSpec.configure do |config|
   config.default_formatter = "doc"
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
-
-  config.after :all do
-    Tweet.destroy_all
-    Follow.destroy_all
-    User.destroy_all
-  end
 =begin
   # This allows you to limit a spec run to individual examples or groups
   # you care about by tagging them with `:focus` metadata. When nothing
