@@ -2,6 +2,8 @@ require "rails_helper"
 
 RSpec.describe Tweet, type: :model do
 
+  subject { create(:tweet) }
+
   describe "relationships" do
     it { should belong_to(:user) }
   end
