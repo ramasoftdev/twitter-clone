@@ -5,13 +5,11 @@ RSpec.describe "Followships", type: :request do
   include_context "api request authentication helper methods"
   include_context "api request global before and after hooks"
 
-  let!(:user) { FactoryBot.create(:user) }
-  let(:user_second) { FactoryBot.create(:user_second) }
-  let(:user_third) { FactoryBot.create(:user_third).as_json }
-  let!(:tweet) { FactoryBot.create(:tweet, user: user_second) }
-  let!(:follow) {
-    FactoryBot.create(:follow, follower_user_id: user.id, following_user_id: user_second.id)
-  }
+  let!(:user) { create(:user) }
+  let(:user_second) { create(:user) }
+  let(:user_third) { create(:user).as_json }
+  let!(:tweet) { create(:tweet) }
+  let!(:follow) { create(:follow, follower_user_id: user.id, following_user_id: user_second.id) }
 
   before(:each) do
     @current_user = :user
