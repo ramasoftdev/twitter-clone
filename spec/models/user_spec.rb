@@ -1,9 +1,10 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject { FactoryBot.create(:user) }
-  let(:invalid_user) { FactoryBot.create(:invalid_user) }
+  
+  subject { create(:user) }
 
+<<<<<<< HEAD
   describe "~> #{described_class}`s associations" do
     it { should have_many(:tweets) }
     it { should have_many(:following).class_name("Follow").with_foreign_key("follower_user_id") }
@@ -28,11 +29,15 @@ RSpec.describe User, type: :model do
     end
 
     it "is not valid without an email" do
+=======
+  describe 'Validations' do
+    it 'is not valid without an email' do
+>>>>>>> factoryBot-addition
       subject.email = nil
       expect(subject).to_not be_valid
     end
 
-    it "is not valid without an username" do
+    it 'is not valid without an username' do
       subject.username = nil
       expect(subject).to_not be_valid
     end
