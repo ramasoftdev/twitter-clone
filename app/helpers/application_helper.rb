@@ -1,7 +1,6 @@
 module ApplicationHelper
   def toastr_flash
     flash.each_with_object([]) do |(type, message), flash_messages|
-      # p "Entre aqui #{message} #{type}"
       type = "success" if type == "notice"
       type = "danger" if (type == "error" || type == "alert")
       text = "<div class='alert alert-#{type} alert-dismissible fade show' role='alert'>"

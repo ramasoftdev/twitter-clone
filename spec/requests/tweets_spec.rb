@@ -20,15 +20,11 @@ RSpec.describe "/tweets", type: :request do
   include_context "api request authentication helper methods"
   include_context "api request global before and after hooks"
 
-  let(:valid_attributes) {
-    FactoryBot.create(:tweet)
-  }
+  let(:valid_attributes) { create(:tweet) }
 
-  let(:invalid_attributes) {
-    FactoryBot.build(:invalid_tweet).as_json
-  }
+  let(:valid_attributes_for_creation) { build(:tweet).as_json }
 
-  let(:valid_attributes_for_creation) { FactoryBot.build(:tweet).as_json }
+  let(:invalid_attributes) { build(:tweet, twett_content: nil).as_json }
 
   let!(:user) { valid_attributes.user }
 

@@ -6,7 +6,7 @@ RSpec.describe "Homes", type: :request do
   include_context "api request authentication helper methods"
   include_context "api request global before and after hooks"
 
-  let!(:user) { FactoryBot.create(:user) }
+  let!(:user) { create(:user) }
 
   before(:each) do
     @current_user = :user
