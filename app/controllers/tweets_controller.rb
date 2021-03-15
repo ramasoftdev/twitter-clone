@@ -48,9 +48,6 @@ class TweetsController < HomeController
     if @tweet.destroy
       flash[:success] = 'Tweet was successfully destroyed.'
       redirect_to tweets_url
-    else
-      flash[:error] = @tweet.errors.full_messages
-      render @tweet
     end
   end
 
