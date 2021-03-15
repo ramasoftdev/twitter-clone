@@ -1,7 +1,7 @@
 require 'rails_helper'
 require "shared_contexts"
 
-RSpec.describe "Homes", type: :request do
+RSpec.describe "Home", type: :request do
 
   include_context "api request authentication helper methods"
   include_context "api request global before and after hooks"
