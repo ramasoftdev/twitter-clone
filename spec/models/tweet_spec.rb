@@ -9,8 +9,8 @@ RSpec.describe Tweet, type: :model do
   end
 
   describe "validations" do
-    it { should validate_length_of(:twett_content).is_at_most(280) }
-    it { should validate_length_of(:twett_content).is_at_least(2) }
+    it { should validate_length_of(:tweet_content).is_at_most(280) }
+    it { should validate_length_of(:tweet_content).is_at_least(2) }
     it { should validate_presence_of(:user_id) }
   end
 end

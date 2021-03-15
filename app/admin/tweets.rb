@@ -5,10 +5,10 @@ ActiveAdmin.register Tweet do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :twett_content, :user_id
+  permit_params :tweet_content, :user_id
 
   # show title: "My Tweet" do
-  #   h2 "#{tweet.twett_content}"
+  #   h2 "#{tweet.tweet_content}"
 
   #   div do
   #     h3 "Id: #{tweet.id}"
@@ -21,7 +21,7 @@ ActiveAdmin.register Tweet do
   # or
   #
   # permit_params do
-  #   permitted = [:twett_content, :user_id]
+  #   permitted = [:tweet_content, :user_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end

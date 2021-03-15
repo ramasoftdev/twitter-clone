@@ -24,7 +24,7 @@ RSpec.describe "/tweets", type: :request do
 
   let(:valid_attributes_for_creation) { build(:tweet).as_json }
 
-  let(:invalid_attributes) { build(:tweet, twett_content: nil).as_json }
+  let(:invalid_attributes) { build(:tweet, tweet_content: nil).as_json }
 
   let!(:user) { valid_attributes.user }
 
@@ -94,14 +94,14 @@ RSpec.describe "/tweets", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        { twett_content: valid_attributes_for_creation["twett_content"] }
+        { tweet_content: valid_attributes_for_creation["tweet_content"] }
       }
 
       it "updates the requested tweet" do
         tweet = valid_attributes
         patch tweet_url(tweet), params: { tweet: new_attributes }
         tweet.reload
-        expect(tweet.attributes).to include({ "twett_content" => "#{new_attributes[:twett_content]}" })
+        expect(tweet.attributes).to include({ "tweet_content" => "#{new_attributes[:tweet_content]}" })
       end
 
       it "redirects to the tweet" do
