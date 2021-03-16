@@ -8,18 +8,7 @@
             
             <hr>
 
-            <% @follower_users.each do |user| %>
-                <div class="media mb-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <label><%= user.name %> <%= user.lastname %></label>
-                        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
-                        <% if (@unfollow_users.include? user.email)%>
-                            <a href="<%= follow_user_path(user.username) %>" title="Follow @<%= user.username %>?">[Follow]</a>
-                        <% end %>
-                    </div>
-                </div>
-            <% end %>
+            <%= render 'users', users: @follower_users %>
 
             <div class="media mb-4">
                 <div class="media-body">
