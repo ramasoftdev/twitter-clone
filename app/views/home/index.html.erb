@@ -29,7 +29,7 @@
                 <div class="media mb-4">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
-                        <% user = @users_tweets.select{|user| user.id == tweet.user_id}.first %>
+                        <% user = tweet.user %>
                         <label><b><%= user.name %> <%= user.lastname %></b>, @<%= user.username %> - <%= tweet.updated_at.strftime("%Y/%m/%d %H:%M:%S:%L") %></label>
                         <br>
                         <p><%= link_to "#{tweet.twett_content}", tweet_path(tweet) %> &nbsp;&nbsp;</p>
