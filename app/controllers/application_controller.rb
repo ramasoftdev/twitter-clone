@@ -11,16 +11,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit :sign_in, keys: [:login, :password]
     devise_parameter_sanitizer.permit :account_update, keys: added_attrs
   end
-
-  def following_count
-    current_user.following_users.count
-  end
-
-  def followers_count
-    current_user.followers_users.count
-  end
-
-  def tweets_count
-    current_user.tweets.count
-  end
 end
