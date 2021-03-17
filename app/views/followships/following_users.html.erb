@@ -5,19 +5,10 @@
         <div class="col-lg-8">
             <!-- Title -->
             <h6 class="mt-4"><a href="#">@<%= current_user.username%>'s</a> Following</h6>
-            
+
             <hr>
 
-            <% @following_users.each do |user| %>
-                <div class="media mb-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <label><%= user.name %> <%= user.lastname %></label>
-                        <br>
-                        <a href="<%= user_tweets_path(user.username) %>" title="Tweets @<%= user.username %>">(@<%= user.username %>)</a>
-                    </div>
-                </div>
-            <% end %>
+            <%= render 'users', users: @following_users %>
 
             <div class="media mb-4">
                 <div class="media-body">
