@@ -34,6 +34,7 @@ gem 'devise'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap4'
 gem 'faker'
+gem 'activeadmin'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -51,6 +52,8 @@ group :development do
   gem 'spring'
   gem 'rubocop', '~> 1.10'
   gem 'bullet', '~> 6.1', '>= 6.1.4'
+  gem 'simplecov', '~> 0.12.0'
+  gem 'rubocop-rails', '~> 2.9', '>= 2.9.1'
 end
 
 group :test do
@@ -60,6 +63,7 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
   gem 'factory_bot_rails', '~> 6.1.0'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'database_cleaner-active_record'
 end
 
