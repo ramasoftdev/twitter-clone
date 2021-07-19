@@ -10,7 +10,7 @@
               <div class="card-body">
                   <%= form_with(model: tweet) do |form| %>
                     <div class="form-group">
-                        <%= form.text_field :twett_content, class: "form-control", rows:"1", max: '280' %>
+                        <%= form.text_field :tweet_content, class: "form-control", rows:"1", max: '280' %>
                     </div>
                     <%= form.submit%>
                   <% end %>

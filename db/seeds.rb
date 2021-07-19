@@ -10,3 +10,4 @@ ActiveRecord::Base.transaction do
   load "db/seeds/tweets/tweets.rb"
   load "db/seeds/follows/follows.rb"
 end
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

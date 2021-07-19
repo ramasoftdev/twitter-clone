@@ -11,7 +11,7 @@ User.find_or_initialize_by(email: "koombean@email.com", username: "koombeanuser"
 (1..20).each do |id|
   User.find_or_initialize_by(email: Faker::Internet.email, username: Faker::Internet.username)
     .update(
-      name: Faker::Name.name,
+      name: Faker::Name.first_name,
       lastname: Faker::Name.last_name,
       password: "pass12345",
       password_confirmation: "pass12345",

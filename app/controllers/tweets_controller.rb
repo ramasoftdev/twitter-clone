@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# TweetsController
 class TweetsController < HomeController
-  before_action :set_tweet, only: %i[ show edit update destroy ]
+  before_action :set_tweet, only: %i[show edit update destroy]
 
   # GET /tweets or /tweets.json
   def index
@@ -7,8 +10,7 @@ class TweetsController < HomeController
   end
 
   # GET /tweets/1 or /tweets/1.json
-  def show
-  end
+  def show; end
 
   # GET /tweets/new
   def new
@@ -16,36 +18,35 @@ class TweetsController < HomeController
   end
 
   # GET /tweets/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /tweets or /tweets.json
   def create
     @tweet = current_user.tweets.build(tweet_params)
     if @tweet.save
-      flash[:success] = "Tweet was successfully created."
+      flash[:success] = 'Tweet was successfully created.'
       redirect_to root_path
     else
       flash[:error] = @tweet.errors.full_messages
-      render "new"
+      render 'new'
     end
   end
 
   # PATCH/PUT /tweets/1 or /tweets/1.json
   def update
     if @tweet.update(tweet_params)
-      flash[:success] = "Tweet was successfully updated."
+      flash[:success] = 'Tweet was successfully updated.'
       redirect_to @tweet
     else
       flash[:error] = @tweet.errors.full_messages
-      render "edit"
+      render 'edit'
     end
   end
 
   # DELETE /tweets/1 or /tweets/1.json
   def destroy
     if @tweet.destroy
-      flash[:success] = "Tweet was successfully destroyed."
+      flash[:success] = 'Tweet was successfully destroyed.'
       redirect_to tweets_url
     else
       flash[:error] = @tweet.errors.full_messages
@@ -62,6 +63,6 @@ class TweetsController < HomeController
 
   # Only allow a list of trusted parameters through.
   def tweet_params
-    params.require(:tweet).permit(:twett_content)
+    params.require(:tweet).permit(:tweet_content)
   end
 end
